@@ -11,6 +11,7 @@ public class FastCollinearPoints {
             throw new NullPointerException();
         }
         segments = new ArrayList<>();
+        ArrayList<Point> group = new ArrayList<>();
         for (int i = 0; i < points.length; i++) {
             Point origin = points[i];
             if (origin == null) {
@@ -25,27 +26,34 @@ public class FastCollinearPoints {
             if (currentSlope == Double.NEGATIVE_INFINITY) {
                 throw new IllegalArgumentException();
             }
-            int seenEqualSlopes = 0;
+
+            group.clear();
+            group.add(origin);
 
             for (int j = begin; j < points.length; j++) {
                 Point p = points[j];
                 double slope = origin.slopeTo(p);
                 if (currentSlope == slope) {
-                    seenEqualSlopes++;
-                    if (seenEqualSlopes >= 3 && j == points.length - 1) {
-                        // register group
-                        segments.add(new LineSegment(origin, points[j]));
+                    group.add(p);
+                    if (group.size() >= 4 && j == points.length - 1) {
+                        registerGroup(group);
                     }
                 } else {
-                    if (seenEqualSlopes >= 3) {
-                        // register group
-                        segments.add(new LineSegment(origin, points[j - 1]));
+                    if (group.size() >= 4) {
+                        registerGroup(group);
                     }
-                    seenEqualSlopes = 1;
+                    group.clear();
+                    group.add(origin);
+                    group.add(p);
                     currentSlope = slope;
                 }
             }
         }
+    }
+
+    private void registerGroup(ArrayList<Point> group) {
+        group.sort(null);
+        segments.add(new LineSegment(group.get(0), group.get(group.size() - 1)));
     }
 
     // the number of line segments

@@ -49,8 +49,13 @@ public class FastCollinearPointsTest {
         assertArrayEquals(new LineSegment[]{new LineSegment(new Point(0, 0), new Point(3, 3))}, segments1);
         assertEquals("one segment", 1, collinearPoints1.numberOfSegments());
 
+    }
+
+    @Test
+    public void testForCollinearDetection2() {
+
         Point[] points2 = new Point[]{
-                new Point(10, 15),
+              //  new Point(10, 15),
                 new Point(0, 0),
                 new Point(1, 1),
                 new Point(2, 2),
