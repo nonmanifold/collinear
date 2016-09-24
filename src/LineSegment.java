@@ -65,7 +65,7 @@ public class LineSegment {
     public boolean equals(Object obj) {
         if (obj.getClass() == this.getClass()) {
             LineSegment other = (LineSegment) obj;
-            return other.p.equals(p) && other.q.equals(q) || other.p.equals(q) && other.q.equals(p);
+            return other.p.compareTo(p) == 0 && other.q.compareTo(q) == 0 || other.p.compareTo(q) == 0 && other.q.compareTo(p) == 0;
         } else {
             return super.equals(obj);
         }
