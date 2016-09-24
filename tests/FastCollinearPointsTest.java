@@ -53,7 +53,6 @@ public class FastCollinearPointsTest {
 
     @Test
     public void testForCollinearDetection2() {
-
         Point[] points2 = new Point[]{
                 new Point(10, 15),
                 new Point(0, 0),
@@ -71,7 +70,6 @@ public class FastCollinearPointsTest {
 
     @Test
     public void verticals() {
-
         Point[] points2 = new Point[]{
                 new Point(0, 0),
                 new Point(0, 1),

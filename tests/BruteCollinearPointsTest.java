@@ -66,7 +66,6 @@ public class BruteCollinearPointsTest {
 
     @Test
     public void testForCollinearDetection2() {
-
         Point[] points2 = new Point[]{
                 new Point(10, 15),
                 new Point(0, 0),
@@ -79,22 +78,20 @@ public class BruteCollinearPointsTest {
         BruteCollinearPoints collinearPoints2 = new BruteCollinearPoints(points2);
         LineSegment[] segments2 = collinearPoints2.segments();
         assertArrayEquals(new LineSegment[]{new LineSegment(new Point(0, 0), new Point(3, 3))}, segments2);
-
     }
 
     @Test
     public void verticals() {
-
         Point[] points2 = new Point[]{
                 new Point(0, 0),
-                new Point(0, 1),
                 new Point(0, 2),
                 new Point(0, 3),
-                new Point(0, 30),
-                new Point(0, 15),
+                new Point(0, 1),
+                new Point(10, 30),
+                new Point(10, 15),
         };
         BruteCollinearPoints collinearPoints2 = new BruteCollinearPoints(points2);
         LineSegment[] segments2 = collinearPoints2.segments();
-        assertArrayEquals(new LineSegment[]{new LineSegment(new Point(0, 0), new Point(0, 30))}, segments2);
+        assertArrayEquals(new LineSegment[]{new LineSegment(new Point(0, 0), new Point(0, 3))}, segments2);
     }
 }

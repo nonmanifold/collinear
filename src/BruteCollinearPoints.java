@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BruteCollinearPoints {
 
@@ -10,6 +11,7 @@ public class BruteCollinearPoints {
             throw new NullPointerException();
         }
         segments = new ArrayList<>();
+        Point[] group = new Point[4];
         for (int p1 = 0; p1 < points.length; p1++) {
             Point pp1 = points[p1];
             for (int p2 = p1 + 1; p2 < points.length; p2++) {
@@ -31,7 +33,12 @@ public class BruteCollinearPoints {
                             throw new IllegalArgumentException();
                         }
                         if (slope12 == slope13 && slope12 == slope14) {
-                            segments.add(new LineSegment(pp1, pp4));
+                            group[0] = pp1;
+                            group[1] = pp2;
+                            group[2] = pp3;
+                            group[3] = pp4;
+                            Arrays.sort(group);
+                            segments.add(new LineSegment(group[0], group[3]));
                         }
                     }
                 }
