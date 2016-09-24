@@ -1,5 +1,7 @@
 import org.junit.Test;
 
+import java.util.Comparator;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -15,16 +17,16 @@ public class PointTest {
          */
         Point p0 = new Point(10, 0);
         Point p1 = new Point(10, 1);
-        assertEquals("p0 is less then p1 when y0 < y1", p0.compareTo(p1), -1);
-        assertEquals("p1 is greather than p0 when y0 < y1", p1.compareTo(p0), 1);
+        assertEquals("p0 is less then p1 when y0 < y1", -1, p0.compareTo(p1));
+        assertEquals("p1 is greather than p0 when y0 < y1", 1, p1.compareTo(p0));
 
         p0 = new Point(10, 50);
         p1 = new Point(100, 50);
-        assertEquals("p0 is less than p1 when y0 = y1 and x0 < x1", p0.compareTo(p1), -1);
-        assertEquals("p1 is greather than p0 when y0 = y1 and x0 < x1", p1.compareTo(p0), 1);
+        assertEquals("p0 is less than p1 when y0 = y1 and x0 < x1", -1, p0.compareTo(p1));
+        assertEquals("p1 is greather than p0 when y0 = y1 and x0 < x1", 1, p1.compareTo(p0));
 
-        assertEquals("p0.compareTo(p0) is 0", p0.compareTo(p0), 0);
-        assertEquals("p1.compareTo(p1) is 0", p1.compareTo(p1), 0);
+        assertEquals("p0.compareTo(p0) is 0", 0, p0.compareTo(p0));
+        assertEquals("p1.compareTo(p1) is 0", 0, p1.compareTo(p1));
     }
 
     @Test
@@ -54,4 +56,12 @@ public class PointTest {
         assertTrue("Double.NEGATIVE_INFINITY if (x0, y0) and (x1, y1) are equal", (new Point(10, 20)).slopeTo(new Point(10, 20)) == Double.NEGATIVE_INFINITY);
     }
 
+    @Test
+    public void comparator() {
+        Point p = new Point(0, 0);
+        Comparator<Point> comparator = p.slopeOrder();
+        assertEquals(0, comparator.compare(new Point(10, 10), new Point(20, 20)));
+        assertEquals(1, comparator.compare(new Point(10, 20), new Point(20, 20)));
+        assertEquals(-1, comparator.compare(new Point(20, 20), new Point(10, 20)));
+    }
 }
