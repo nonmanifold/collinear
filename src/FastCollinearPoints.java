@@ -16,28 +16,33 @@ public class FastCollinearPoints {
             if (origin == null) {
                 throw new IllegalArgumentException();
             }
-            if (i + 1 > points.length - 1) {
+            int begin = i + 1;
+            if (begin > points.length - 1) {
                 continue;
             }
-            Arrays.sort(points, i + 1, points.length, origin.slopeOrder());
-            double lastSlope = origin.slopeTo(points[i + 1]);
-            if (lastSlope == Double.NEGATIVE_INFINITY) {
+            Arrays.sort(points, begin, points.length, origin.slopeOrder());
+            double currentSlope = origin.slopeTo(points[begin]);
+            if (currentSlope == Double.NEGATIVE_INFINITY) {
                 throw new IllegalArgumentException();
             }
-            int groupNum = 1;
+            int seenEqualSlopes = 0;
 
-            for (int j = i + 1; j < points.length; j++) {
+            for (int j = begin; j < points.length; j++) {
                 Point p = points[j];
                 double slope = origin.slopeTo(p);
-                if (lastSlope == slope) {
-                    groupNum++;
+                if (currentSlope == slope) {
+                    seenEqualSlopes++;
+                    if (seenEqualSlopes >= 3 && j == points.length - 1) {
+                        // register group
+                        segments.add(new LineSegment(origin, points[j]));
+                    }
                 } else {
-                    if (groupNum >= 3) {
+                    if (seenEqualSlopes >= 3) {
                         // register group
                         segments.add(new LineSegment(origin, points[j - 1]));
                     }
-                    groupNum = 1;
-                    lastSlope = slope;
+                    seenEqualSlopes = 1;
+                    currentSlope = slope;
                 }
             }
         }
