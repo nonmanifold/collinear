@@ -6,13 +6,14 @@ public class FastCollinearPoints {
     private ArrayList<LineSegment> segments;
 
     // finds all line segments containing 4 or more points
-    public FastCollinearPoints(Point[] points) {
-        if (points == null) {
+    public FastCollinearPoints(Point[] inpoints) {
+        if (inpoints == null) {
             throw new NullPointerException();
         }
         segments = new ArrayList<>();
         ArrayList<Point> group;
         groups = new ArrayList<ArrayList<Point>>();
+        Point[] points = inpoints.clone();
         for (int i = 0; i < points.length; i++) {
             Point origin = points[i];
             if (origin == null) {
