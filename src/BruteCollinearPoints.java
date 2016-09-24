@@ -6,7 +6,7 @@ public class BruteCollinearPoints {
 
     // finds all line segments containing 4 points
     public BruteCollinearPoints(Point[] points) {
-        if(points==null){
+        if (points == null) {
             throw new NullPointerException();
         }
         segments = new ArrayList<>();

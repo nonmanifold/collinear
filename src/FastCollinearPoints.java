@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 
 public class FastCollinearPoints {
     private ArrayList<LineSegment> segments;
