@@ -48,7 +48,7 @@ public class PointTest {
         int y1 = 40;
         Point p1 = new Point(x1, y1);
 
-        float slope = (y1 - y0) / (x1 - x0);
+        double slope = ((double) y1 - (double) y0) / ((double) x1 - (double) x0);
         assertEquals(p0.slopeTo(p1), slope, 0.001);
 
         assertTrue("+0.0 if the line segment connecting the two points is horizontal", (new Point(10, 20)).slopeTo(new Point(20, 20)) == +0.0);

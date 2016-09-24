@@ -10,43 +10,35 @@ public class FastCollinearPoints {
         if (points == null) {
             throw new NullPointerException();
         }
-        Point[] tempPoints = new Point[points.length - 1];
         segments = new ArrayList<>();
         for (int i = 0; i < points.length; i++) {
-            Point p = points[i];
-            if (p == null) {
+            Point origin = points[i];
+            if (origin == null) {
                 throw new IllegalArgumentException();
             }
-
-            for (int j = 0, k = 0; j < points.length; j++) {
-                if (j != i) {
-                    tempPoints[k] = points[j];
-                    k++;
-                }
+            if (i + 1 > points.length - 1) {
+                continue;
             }
-            processPointAt(p, tempPoints);
-        }
-    }
-
-    private void processPointAt(Point origin, Point[] points) {
-        Arrays.sort(points, origin.slopeOrder());
-        double lastSlope = Double.NEGATIVE_INFINITY;
-        int groupNum = 0;
-        for (int j = 0; j < points.length; j++) {
-            Point p = points[j];
-            double slope = origin.slopeTo(p);
-            if (slope == Double.NEGATIVE_INFINITY) {
+            Arrays.sort(points, i + 1, points.length, origin.slopeOrder());
+            double lastSlope = origin.slopeTo(points[i + 1]);
+            if (lastSlope == Double.NEGATIVE_INFINITY) {
                 throw new IllegalArgumentException();
             }
-            if (lastSlope == slope) {
-                groupNum++;
-            } else {
-                if (groupNum >= 3) {
-                    // register group
-                    segments.add(new LineSegment(origin, points[j - 1]));
+            int groupNum = 1;
+
+            for (int j = i + 1; j < points.length; j++) {
+                Point p = points[j];
+                double slope = origin.slopeTo(p);
+                if (lastSlope == slope) {
+                    groupNum++;
+                } else {
+                    if (groupNum >= 3) {
+                        // register group
+                        segments.add(new LineSegment(origin, points[j - 1]));
+                    }
+                    groupNum = 1;
+                    lastSlope = slope;
                 }
-                groupNum = 0;
-                lastSlope = slope;
             }
         }
     }

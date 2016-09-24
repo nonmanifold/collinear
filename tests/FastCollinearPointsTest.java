@@ -45,9 +45,9 @@ public class FastCollinearPointsTest {
                 new Point(3, 3),
         };
         FastCollinearPoints collinearPoints1 = new FastCollinearPoints(points1);
-        assertEquals("one segment", 1, collinearPoints1.numberOfSegments());
         LineSegment[] segments1 = collinearPoints1.segments();
         assertArrayEquals(new LineSegment[]{new LineSegment(new Point(0, 0), new Point(3, 3))}, segments1);
+        assertEquals("one segment", 1, collinearPoints1.numberOfSegments());
 
         Point[] points2 = new Point[]{
                 new Point(10, 15),
