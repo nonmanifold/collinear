@@ -28,15 +28,15 @@ public class FastCollinearPoints {
 
             group.clear();
             group.add(origin);
+            group.add(points[begin]);
 
-            for (int j = begin; j < points.length; j++) {
+            for (int j = begin + 1; j < points.length; j++) {
                 Point p = points[j];
                 double slope = origin.slopeTo(p);
                 if (currentSlope == slope) {
                     group.add(p);
                     if (group.size() >= 4 && j == points.length - 1) {
-                        registerGroup(group);
-                        return;
+                        registerGroup(group); //last group is at the end of the array
                     }
                 } else {
                     if (group.size() >= 4) {
