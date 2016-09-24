@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class FastCollinearPoints {
+    private final ArrayList<ArrayList<Point>> groups;
     private ArrayList<LineSegment> segments;
 
     // finds all line segments containing 4 or more points
@@ -10,7 +11,8 @@ public class FastCollinearPoints {
             throw new NullPointerException();
         }
         segments = new ArrayList<>();
-        ArrayList<Point> group = new ArrayList<>();
+        ArrayList<Point> group;
+        groups = new ArrayList<ArrayList<Point>>();
         for (int i = 0; i < points.length; i++) {
             Point origin = points[i];
             if (origin == null) {
@@ -26,7 +28,7 @@ public class FastCollinearPoints {
                 throw new IllegalArgumentException();
             }
 
-            group.clear();
+            group = new ArrayList<>();
             group.add(origin);
             group.add(points[begin]);
 
@@ -36,24 +38,32 @@ public class FastCollinearPoints {
                 if (currentSlope == slope) {
                     group.add(p);
                     if (group.size() >= 4 && j == points.length - 1) {
-                        registerGroup(group); //last group is at the end of the array
+                        registerGroup(group);
                     }
                 } else {
                     if (group.size() >= 4) {
                         registerGroup(group);
                     }
-                    group.clear();
+                    group = new ArrayList<>();
                     group.add(origin);
                     group.add(p);
                     currentSlope = slope;
                 }
             }
         }
+        for (ArrayList<Point> g : groups) {
+            segments.add(new LineSegment(g.get(0), g.get(g.size() - 1)));
+        }
     }
 
     private void registerGroup(ArrayList<Point> group) {
         group.sort(null);
-        segments.add(new LineSegment(group.get(0), group.get(group.size() - 1)));
+        for (ArrayList<Point> g : groups) {
+            if (g.contains(group.get(0)) && g.contains(group.get(group.size() - 1))) {
+                return;
+            }
+        }
+        groups.add(group);
     }
 
     // the number of line segments
