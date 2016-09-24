@@ -126,6 +126,16 @@ public class Point implements Comparable<Point> {
         /* YOUR CODE HERE */
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj.getClass() == this.getClass()) {
+            Point other = (Point) obj;
+            return other.x == x && other.y == y;
+        } else {
+            return super.equals(obj);
+        }
+    }
+
     private class SlopeOrder implements Comparator<Point> {
         @Override
         public int compare(Point p1, Point p2) {
