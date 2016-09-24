@@ -55,7 +55,7 @@ public class FastCollinearPointsTest {
     public void testForCollinearDetection2() {
 
         Point[] points2 = new Point[]{
-              //  new Point(10, 15),
+                new Point(10, 15),
                 new Point(0, 0),
                 new Point(1, 1),
                 new Point(2, 2),
@@ -67,5 +67,21 @@ public class FastCollinearPointsTest {
         LineSegment[] segments2 = collinearPoints2.segments();
         assertArrayEquals(new LineSegment[]{new LineSegment(new Point(0, 0), new Point(3, 3))}, segments2);
         assertEquals("one segment", 1, collinearPoints2.numberOfSegments());
+    }
+
+    @Test
+    public void verticals() {
+
+        Point[] points2 = new Point[]{
+                new Point(0, 0),
+                new Point(0, 1),
+                new Point(0, 2),
+                new Point(0, 3),
+                new Point(0, 30),
+                new Point(0, 15),
+        };
+        FastCollinearPoints collinearPoints2 = new FastCollinearPoints(points2);
+        LineSegment[] segments2 = collinearPoints2.segments();
+        assertArrayEquals(new LineSegment[]{new LineSegment(new Point(0, 0), new Point(0, 30))}, segments2);
     }
 }
