@@ -46,10 +46,11 @@ public class BruteCollinearPointsTest {
         };
         BruteCollinearPoints collinearPoints1 = new BruteCollinearPoints(points1);
         assertEquals("one segment", 1, collinearPoints1.numberOfSegments());
-        assertArrayEquals(new LineSegment[]{new LineSegment(new Point(0, 0), new Point(3, 3))}, collinearPoints1.segments());
+        LineSegment[] segments1 = collinearPoints1.segments();
+        assertArrayEquals(new LineSegment[]{new LineSegment(new Point(0, 0), new Point(3, 3))}, segments1);
 
         Point[] points2 = new Point[]{
-                new Point(10, 0),
+                new Point(10, 15),
                 new Point(0, 0),
                 new Point(1, 1),
                 new Point(2, 2),
@@ -58,7 +59,8 @@ public class BruteCollinearPointsTest {
                 new Point(20, 3),
         };
         BruteCollinearPoints collinearPoints2 = new BruteCollinearPoints(points2);
+        LineSegment[] segments2 = collinearPoints2.segments();
+        assertArrayEquals(new LineSegment[]{new LineSegment(new Point(0, 0), new Point(3, 3))}, segments2);
         assertEquals("one segment", 1, collinearPoints2.numberOfSegments());
-        assertArrayEquals(new LineSegment[]{new LineSegment(new Point(0, 0), new Point(3, 3))}, collinearPoints2.segments());
     }
 }

@@ -70,7 +70,7 @@ public class Point implements Comparable<Point> {
             // horizontal
             return +0.0;
         } else {
-            return (that.y - this.y) / (that.x - this.x);
+            return ((double) that.y - (double) this.y) / ((double) that.x - (double) this.x);
         }
     }
 
