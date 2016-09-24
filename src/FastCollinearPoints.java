@@ -36,6 +36,7 @@ public class FastCollinearPoints {
                     group.add(p);
                     if (group.size() >= 4 && j == points.length - 1) {
                         registerGroup(group);
+                        return;
                     }
                 } else {
                     if (group.size() >= 4) {
