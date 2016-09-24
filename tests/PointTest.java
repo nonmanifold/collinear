@@ -1,12 +1,7 @@
 import org.junit.Test;
-import org.hamcrest.core.IsEqual;
-import org.hamcrest.core.IsNot;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class PointTest {
 
@@ -53,6 +48,10 @@ public class PointTest {
 
         float slope = (y1 - y0) / (x1 - x0);
         assertEquals(p0.slopeTo(p1), slope, 0.001);
+
+        assertTrue("+0.0 if the line segment connecting the two points is horizontal", (new Point(10, 20)).slopeTo(new Point(20, 20)) == +0.0);
+        assertTrue("Double.POSITIVE_INFINITY if the line segment is vertical", (new Point(10, 20)).slopeTo(new Point(10, 200)) == Double.POSITIVE_INFINITY);
+        assertTrue("Double.NEGATIVE_INFINITY if (x0, y0) and (x1, y1) are equal", (new Point(10, 20)).slopeTo(new Point(10, 20)) == Double.NEGATIVE_INFINITY);
     }
 
 }
