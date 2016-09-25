@@ -2,8 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class FastCollinearPoints {
-    private final ArrayList<Point[]> groups;
-    private LineSegment[] segments;
+    private final ArrayList<LineSegment> groups;
 
     // finds all line segments containing 4 or more points
     public FastCollinearPoints(Point[] inpoints) {
@@ -12,7 +11,7 @@ public class FastCollinearPoints {
         }
 
         ArrayList<Point> group;
-        groups = new ArrayList<Point[]>();
+        groups = new ArrayList<>();
         Point[] points = inpoints.clone();
         for (int i = 0; i < points.length; i++) {
             Point origin = points[i];
@@ -52,31 +51,20 @@ public class FastCollinearPoints {
                 }
             }
         }
-        segments = new LineSegment[groups.size()];
-        int i = 0;
-        for (Point[] g : groups) {
-            segments[i] = new LineSegment(g[0], g[g.length - 1]);
-            i++;
-        }
     }
 
     private void registerGroup(ArrayList<Point> group) {
         group.sort(null);
-        for (Point[] g : groups) {
-            if (Arrays.binarySearch(g, group.get(0)) > -1 && Arrays.binarySearch(g, group.get(group.size() - 1)) > -1) {
-                return;
-            }
-        }
-        groups.add(group.toArray(new Point[group.size()]));
+        groups.add(new LineSegment(group.get(0), group.get(group.size()- 1)));
     }
 
     // the number of line segments
     public int numberOfSegments() {
-        return segments.length;
+        return groups.size();
     }
 
     // the line segments
     public LineSegment[] segments() {
-        return segments;
+        return groups.toArray(new LineSegment[groups.size()]);
     }
 }
