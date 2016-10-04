@@ -138,7 +138,10 @@ public class FastCollinearPointsTest {
         };
         FastCollinearPoints collinearPoints2 = new FastCollinearPoints(points2);
         LineSegment[] segments2 = collinearPoints2.segments();
-        assertArrayEquals(new LineSegment[]{new LineSegment(new Point(0, 0), new Point(0, 30)), new LineSegment(new Point(2, 10), new Point(2, 40))}, segments2);
+        assertArrayEquals(new LineSegment[]{
+                new LineSegment(new Point(0, 0), new Point(0, 30)),
+                new LineSegment(new Point(2, 10), new Point(2, 40)),
+        }, segments2);
     }
 
 

@@ -3,6 +3,7 @@ import java.util.Arrays;
 
 public class FastCollinearPoints {
     private final ArrayList<LineSegment> groups;
+    private int lastGroupSize = -1;
 
     // finds all line segments containing 4 or more points
     public FastCollinearPoints(Point[] inpoints) {
@@ -12,6 +13,7 @@ public class FastCollinearPoints {
 
         ArrayList<Point> group;
         groups = new ArrayList<>();
+
         Point[] points = inpoints.clone();
         for (int i = 0; i < points.length; i++) {
             Point origin = points[i];
@@ -54,8 +56,14 @@ public class FastCollinearPoints {
     }
 
     private void registerGroup(ArrayList<Point> group) {
+        if (lastGroupSize == group.size()) {
+            lastGroupSize = group.size() - 1;
+            return;
+        }
+        lastGroupSize = group.size() - 1;
+
         group.sort(null);
-        groups.add(new LineSegment(group.get(0), group.get(group.size()- 1)));
+        groups.add(new LineSegment(group.get(0), group.get(group.size() - 1)));
     }
 
     // the number of line segments
