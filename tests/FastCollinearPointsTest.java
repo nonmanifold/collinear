@@ -1,3 +1,4 @@
+import edu.princeton.cs.algs4.In;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -5,6 +6,19 @@ import org.junit.rules.ExpectedException;
 import static org.junit.Assert.*;
 
 public class FastCollinearPointsTest {
+
+    private Point[] loadPoints(String fileName) {
+        In in = new In(fileName);
+        int n = in.readInt();
+        Point[] points = new Point[n];
+        for (int i = 0; i < n; i++) {
+            int x = in.readInt();
+            int y = in.readInt();
+            points[i] = new Point(x, y);
+        }
+        return points;
+    }
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -144,5 +158,85 @@ public class FastCollinearPointsTest {
         }, segments2);
     }
 
+    @Test
+    public void vertical5() {
+        FastCollinearPoints collinearPoints2 = new FastCollinearPoints(loadPoints("data\\vertical5.txt"));
+        LineSegment[] segments = collinearPoints2.segments();
+        assertEquals(5, segments.length);
+    }
 
+    @Test
+    public void vertical25() {
+        FastCollinearPoints collinearPoints2 = new FastCollinearPoints(loadPoints("data\\vertical25.txt"));
+        LineSegment[] segments = collinearPoints2.segments();
+        assertEquals(25, segments.length);
+    }
+
+    @Test
+    public void vertical50() {
+        FastCollinearPoints collinearPoints2 = new FastCollinearPoints(loadPoints("data\\vertical50.txt"));
+        LineSegment[] segments = collinearPoints2.segments();
+        assertEquals(50, segments.length);
+    }
+
+    @Test
+    public void vertical75() {
+        FastCollinearPoints collinearPoints2 = new FastCollinearPoints(loadPoints("data\\vertical75.txt"));
+        LineSegment[] segments = collinearPoints2.segments();
+        assertEquals(75, segments.length);
+    }
+
+    @Test
+    public void vertical100() {
+        FastCollinearPoints collinearPoints2 = new FastCollinearPoints(loadPoints("data\\vertical100.txt"));
+        LineSegment[] segments = collinearPoints2.segments();
+        assertEquals(100, segments.length);
+    }
+
+    @Test
+    public void input400() {
+        FastCollinearPoints collinearPoints2 = new FastCollinearPoints(loadPoints("data\\input400.txt"));
+        LineSegment[] segments = collinearPoints2.segments();
+        assertEquals(7, segments.length);
+    }
+
+    @Test
+    public void input200() {
+        FastCollinearPoints collinearPoints2 = new FastCollinearPoints(loadPoints("data\\input200.txt"));
+        LineSegment[] segments = collinearPoints2.segments();
+        assertEquals(4, segments.length);
+    }
+
+    @Test
+    public void input56() {
+        FastCollinearPoints collinearPoints2 = new FastCollinearPoints(loadPoints("data\\input56.txt"));
+        LineSegment[] segments = collinearPoints2.segments();
+        assertEquals(17, segments.length);
+    }
+
+    @Test
+    public void input40() {
+        FastCollinearPoints collinearPoints2 = new FastCollinearPoints(loadPoints("data\\input40.txt"));
+        LineSegment[] segments = collinearPoints2.segments();
+        assertEquals(4, segments.length);
+    }
+    @Test
+    public void input20() {
+        FastCollinearPoints collinearPoints2 = new FastCollinearPoints(loadPoints("data\\input20.txt"));
+        LineSegment[] segments = collinearPoints2.segments();
+        assertEquals(5, segments.length);
+    }
+    @Test
+    public void input10() {
+        FastCollinearPoints collinearPoints2 = new FastCollinearPoints(loadPoints("data\\input10.txt"));
+        LineSegment[] segments = collinearPoints2.segments();
+        assertEquals(2, segments.length);
+    }
+
+    @Test
+    public void input9() {
+        FastCollinearPoints collinearPoints2 = new FastCollinearPoints(loadPoints("data\\input9.txt"));
+        LineSegment[] segments = collinearPoints2.segments();
+        assertEquals(1, segments.length);
+    }
 }
