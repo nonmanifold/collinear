@@ -220,12 +220,14 @@ public class FastCollinearPointsTest {
         LineSegment[] segments = collinearPoints2.segments();
         assertEquals(4, segments.length);
     }
+
     @Test
     public void input20() {
         FastCollinearPoints collinearPoints2 = new FastCollinearPoints(loadPoints("data\\input20.txt"));
         LineSegment[] segments = collinearPoints2.segments();
         assertEquals(5, segments.length);
     }
+
     @Test
     public void input10() {
         FastCollinearPoints collinearPoints2 = new FastCollinearPoints(loadPoints("data\\input10.txt"));
